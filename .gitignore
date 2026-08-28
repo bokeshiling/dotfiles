@@ -1,0 +1,10 @@
+# 忽略本地个性化与私密配置文件
+*.local
+*.local.*
+*.secret
+
+# 忽略临时文件与系统文件
+.DS_Store
+*.swp
+*.tmp
+*~
