@@ -2,6 +2,8 @@
 *.local
 *.local.*
 *.secret
+local.lua
+*.local.lua
 
 # 忽略临时文件、备份与系统日志
 .DS_Store
@@ -12,4 +14,10 @@
 *.bak.*
 *.log
 *.zwc
+
+# Neovim 相关忽略
+.config/nvim/doc/
+.config/nvim/README*.md
+.netrwhist
+plugin/packer_compiled.lua
 

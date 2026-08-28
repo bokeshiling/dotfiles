@@ -1,0 +1,140 @@
+local M = {}
+
+function GitInfo()
+    local branch = vim.b.gitsigns_head or ''
+    local diff = vim.b.gitsigns_status or ''
+    return (string.len(branch) > 0 and string.format(" %s ", branch) or " none ") ..
+    (string.len(diff) > 0 and string.format('%s ', vim.fn.trim(diff)) or '')
+end
+
+function ErrCount()
+    local diagnostics = vim.diagnostic.count(0, { severity = vim.diagnostic.severity.ERROR })
+    return string.format('  err=%d  ', diagnostics[vim.diagnostic.severity.ERROR] or 0)
+end
+
+function GetFt()
+    local name = vim.api.nvim_eval("expand('%:p')")
+    local ft = vim.api.nvim_eval('&ft')
+    local icon = require('nvim-lines.common').get_fileicon(ft, name)
+    return string.format(' %s ', string.len(ft) > 0 and icon .. ft or '~')
+end
+
+function M.init_line()
+    vim.g.powerline_symbols = { light_right = '', dark_right = '', light_left = '', dark_left = '' }
+    vim.g.line_powerline_enable = 1
+    vim.g.line_nerdfont_enable = 1
+    vim.g.line_unnamed_filename = '~'
+    vim.g.line_statusline_getters = { 'v:lua.GitInfo', 'v:lua.ErrCount', 'v:lua.GetFt' }
+    vim.g.line_hl = { none = 'NONE', light = 'NONE', dark = 'NONE', ['break'] = '244', space = 238 }
+    vim.cmd('au VimEnter * hi VimLine_Dark ctermfg=245 guifg=#8a8a8a')
+    vim.cmd('au VimEnter * hi VimLine_Buf_Dark ctermfg=245 guifg=#8a8a8a')
+    vim.cmd('au VimEnter * hi VimLine_Other ctermfg=245 guifg=#8a8a8a')
+end
+
+function M.init_comment()
+    vim.g.vim_line_comments = {
+        vim = '"',
+        vimrc = '"',
+        js = '//',
+        ts = '//',
+        java = '//',
+        class = '//',
+        c = '//',
+        h = '//',
+        go = '//',
+        proto = '//',
+        ['go.mod'] = '//',
+        vue = '//',
+        sol = '//',
+        lua = '--',
+        sql = '--',
+        md = '[^_^]:',
+    }
+    vim.g.vim_chunk_comments = {
+        js = { '/**', ' *', ' */' },
+        ts = { '/**', ' *', ' */' },
+        sh = { ':<<!', '', '!' },
+        proto = { '/**', ' *', ' */' },
+        md = { '[^_^]:', '    ', '' },
+        vue = { '/**', ' *', ' */' },
+        sol = { '/**', ' *', ' */' },
+    }
+    vim.keymap.set('n', '??', ':NToggleComment<cr>', { silent = true, noremap = true })
+    vim.keymap.set('v', '/', ':<c-u>VToggleComment<cr>', { silent = true, noremap = true })
+    vim.keymap.set('v', '?', ':<c-u>CToggleComment<cr>', { silent = true, noremap = true })
+end
+
+function M.init_echo()
+    local tmp = 'console.log([ECHO])'
+    vim.keymap.set('v', 'C', ':<c-u>VECHO<cr>', { silent = true, noremap = true })
+    vim.g.vim_echo_by_file = { js = tmp, ts = tmp, vue = tmp }
+end
+
+function M.init_mp()
+    vim.g.mkdp_preview_options = { hide_yaml_meta = 1, disable_filename = 1 }
+    vim.g.vmt_fence_text = 'markdown-toc'
+end
+
+function M.config_iw()
+    local iw = require("interestingwords")
+    iw.setup({
+        colors = { '#aeee55', '#aa5522', '#225488', '#088823', '#eed724', '#bb3c7b', '#5478c0', '#047a89', '#a84247', '#ccf2e5' },
+        search_count = false,
+        navigation = false,
+        scroll_center = false,
+        color_key = "ff",
+        cancel_color_key = "FF",
+    })
+    -- 自行搜索时，取消所有高亮
+    vim.api.nvim_create_autocmd("CmdlineEnter",
+        { pattern = { "/", "?" }, callback = function() iw.UncolorAllWords(false) end })
+end
+
+return {
+    { "dstein64/vim-startuptime", cmd = "StartupTime" },
+    { "yianwillis/vimcdoc", event = "CmdLineEnter" },
+    { "uga-rosa/ccc.nvim", cmd = { 'CccPick', 'CccHighlighterEnable' }, opts = {} },
+    { "Mr-LLLLL/interestingwords.nvim", keys = { 'ff', 'FF' }, config = M.config_iw },
+    { "yaocccc/nvim-lines.lua", init = M.init_line },
+    { "yaocccc/vim-comment", cmd = { "NToggleComment", "VToggleComment", "CToggleComment" }, init = M.init_comment },
+    { "yaocccc/nvim-foldsign", event = 'CursorHold', opts = { foldsigns = { open = '', close = '', seps = { '│', '┃' } } } },
+    { "yaocccc/vim-surround", event = 'ModeChanged' },
+    { "yaocccc/visual-multi.nvim", event = "VeryLazy", opts = {} },
+    { "yaocccc/vim-fcitx2en", event = 'InsertLeavePre' },
+    { "yaocccc/vim-echo", cmd = "VECHO", init = M.init_echo },
+    { "iamcco/markdown-preview.nvim", build = "cd app && npm install", ft = 'markdown', init = M.init_mp },
+    {
+        'MeanderingProgrammer/render-markdown.nvim',
+        dependencies = { 'nvim-treesitter/nvim-treesitter' },
+        init = function() vim.keymap.set('n', '<F6>', ':RenderMarkdown toggle<cr>', { silent = true, noremap = true }) end,
+        opts = {
+            code = { width = 'block', render_modes = true, right_pad = 1, border = 'thin', style = 'normal' },
+            sign = { enabled = false },
+            checkbox = { enabled = false },
+            bullet = { enabled = false },
+        },
+    },
+    {
+        "terryma/vim-expand-region",
+        init = function()
+            vim.keymap.set('v', 'v', '<Plug>(expand_region_expand)', { silent = true })
+            vim.keymap.set('v', 'V', '<Plug>(expand_region_shrink)', { silent = true })
+        end
+    },
+    {
+        "nvimdev/indentmini.nvim",
+        opts = { only_current = false, exclude = { 'markdown', 'help', 'text', 'rst' } },
+        event = 'BufReadPre',
+        init = function()
+            vim.api.nvim_set_hl(0, 'IndentLine', { fg = '#3c3c3c' })
+            vim.api.nvim_set_hl(0, 'IndentLineCurrent', { fg = '#3a4f6a' })
+        end
+    },
+    {
+        "yaocccc/babel.nvim",
+        version = "*",
+        config = M.config_tt,
+        keys = { 'mm' },
+        opts = { target = "zh", keymaps = { translate = "mm", translate_word = "mm" }, border = require("ui/gradient_border").get() }
+    },
+}
