@@ -3,8 +3,13 @@
 *.local.*
 *.secret
 
-# 忽略临时文件与系统文件
+# 忽略临时文件、备份与系统日志
 .DS_Store
 *.swp
 *.tmp
 *~
+*.bak
+*.bak.*
+*.log
+*.zwc
+
