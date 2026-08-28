@@ -1,0 +1,3 @@
+com.bilingify.readest
+com.discordapp.Discord
+org.telegram.desktop

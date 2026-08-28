@@ -1,71 +1,150 @@
-# 🛠️ My Dotfiles (Managed by Git + GNU Stow)
+# 🪐 bokeshiling's Dotfiles
 
-这是我的个人配置文件仓库，采用 **Git** 进行版本控制与跨设备同步，配合 **GNU Stow** 管理软链接。
+> 基于 **Arch Linux + Niri + GNU Stow** 的模块化个人配置与系统软件包管理方案。
+
+![Arch Linux](https://img.shields.io/badge/Arch_Linux-1793D1?logo=arch-linux&logoColor=white&style=flat-square)
+![Wayland](https://img.shields.io/badge/Wayland-Niri-blue?style=flat-square)
+![GNU Stow](https://img.shields.io/badge/Symlink-GNU_Stow-yellow?style=flat-square)
+![Shell](https://img.shields.io/badge/Shell-Zsh_%26_Bash-green?style=flat-square)
+![Editor](https://img.shields.io/badge/Editor-Neovim-57A143?logo=neovim&logoColor=white&style=flat-square)
 
 ---
 
-## 📁 目录模块一览
+## 🖥️ 系统技术栈与桌面环境
 
-| 模块 | 说明 | 对应目标路径 |
+| 分类 | 核心组件 | 说明 |
 | :--- | :--- | :--- |
-| `git/` | Git 配置 | `~/.gitconfig` |
-| `zsh/` | Zsh 配置 | `~/.zshrc` |
-| `bash/` | Bash 配置 | `~/.bashrc`, `~/.bash_profile`, `~/.bash_logout` |
-| `nvim/` | Neovim 配置 | `~/.config/nvim/` |
-| `vim/` | Vim 配置 | `~/.vimrc` |
-| `kitty/` | Kitty 终端 | `~/.config/kitty/` |
-| `alacritty/` | Alacritty 终端 | `~/.config/alacritty/` |
-| `starship/` | Starship Prompt | `~/.config/starship.toml` |
-| `niri/` | Niri 滚动平铺窗口管理器 | `~/.config/niri/` |
-| `waybar/` | 状态栏及小脚本 | `~/.config/waybar/` |
-| `mako/` | 桌面通知守护进程 | `~/.config/mako/` |
-| `swaylock/` | 锁屏配置 | `~/.config/swaylock/` |
-| `matugen/` | Material You 动态色彩生成器 | `~/.config/matugen/` |
-| `waypaper/` | 壁纸管理器 | `~/.config/waypaper/` |
-| `satty/` | 截图与标注工具 | `~/.config/satty/` |
-| `scripts/` | 个人实用脚本库 | `~/.config/scripts/` |
-| `gtk/` | GTK 主题与 Xsettings | `~/.config/gtk-3.0/`, `gtk-4.0/`, `xsettingsd/`, `~/.gtkrc-2.0` |
-| `fontconfig/` | 字体微调与回退规则 | `~/.config/fontconfig/` |
-| `fcitx5/` | Fcitx5 输入法配置 | `~/.config/fcitx5/` |
-| `cava/` | 终端音频频谱可视化 | `~/.config/cava/` |
-| `mpd/` & `ncmpcpp/` | 音乐守护进程与客户端 | `~/.config/mpd/`, `~/.config/ncmpcpp/` |
+| **操作系统** | **Arch Linux** | 滚动发行版 (Rolling Release) |
+| **窗口管理器** | **Niri** | 新一代无限平铺/可滚动（Scrollable Tiling）Wayland 合成器 |
+| **状态栏** | **Waybar** | 自定义动态状态栏、多功能小脚本、歌词与音频响应 |
+| **动态主题** | **Matugen** | 基于 Material You 规范根据壁纸生成动态主题色调 |
+| **壁纸管理** | **Waypaper** | 配合 swww / swaybg 的 GUI 壁纸切换器 |
+| **终端模拟器** | **Kitty** / **Alacritty** | GPU 加速现代终端 |
+| **命令行环境** | **Zsh** + **Starship** | 高颜值、快响应的 Prompt 与自动补全体系 |
+| **文本编辑器** | **Neovim** (LazyVim) / **Vim** | 现代化 IDE 级别代码与配置编辑体验 |
+| **通知系统** | **Mako** | 轻量级 Wayland 通知守护进程 |
+| **输入法** | **Fcitx5** | Ayaya 主题与中英文无缝切换 |
+| **截图与录屏** | **Satty** + **wl-screenrec** | 截图快速标注与屏幕录制套件 |
+| **音频与音乐** | **MPD** + **ncmpcpp** + **Cava** | 音乐后台服务、TUI 客户端及桌面音频频谱可视化 |
 
 ---
 
-## 🚀 新机器部署方式
+## 📁 配置模块与软链接映射
 
-### 1. 安装 GNU Stow 与 Git
-```bash
-# Arch Linux
-sudo pacman -S git stow
+本项目借助 **GNU Stow** 将每个子目录作为独立模块，原样映射到用户的 `$HOME` 目录下：
 
-# Ubuntu / Debian
-sudo apt update && sudo apt install git stow
+```text
+dotfiles/
+├── packages/                # 软件包管理清单与导出/恢复脚本（不参与 stow）
+├── bootstrap.sh             # 一键自动化部署脚本
+├── alacritty/               # ~/.config/alacritty
+├── bash/                    # ~/.bashrc, ~/.bash_profile, ~/.bash_logout
+├── cava/                    # ~/.config/cava
+├── fcitx5/                  # ~/.config/fcitx5
+├── fontconfig/              # ~/.config/fontconfig
+├── git/                     # ~/.gitconfig
+├── gtk/                     # ~/.config/gtk-3.0, gtk-4.0, xsettingsd, ~/.gtkrc-2.0
+├── kitty/                   # ~/.config/kitty
+├── mako/                    # ~/.config/mako
+├── matugen/                 # ~/.config/matugen
+├── mpd/                     # ~/.config/mpd
+├── ncmpcpp/                 # ~/.config/ncmpcpp
+├── niri/                    # ~/.config/niri
+├── nvim/                    # ~/.config/nvim
+├── satty/                   # ~/.config/satty
+├── scripts/                 # ~/.config/scripts (自定义壁纸、模糊、主题切换脚本)
+├── starship/                # ~/.config/starship.toml
+├── swaylock/                # ~/.config/swaylock
+├── vim/                     # ~/.vimrc
+├── waybar/                  # ~/.config/waybar
+├── waypaper/                # ~/.config/waypaper
+└── zsh/                     # ~/.zshrc
 ```
 
-### 2. 克隆仓库到家目录
+---
+
+## 📦 软件包管理与备份（Package Management）
+
+仓库内置了针对 **Arch Linux (pacman)**、**AUR (yay/paru)** 以及 **Flatpak** 的自动化备份与还原机制：
+
+```text
+packages/
+├── export.sh            # 一键导出系统当前已安装的所有包列表
+├── install.sh           # 一键从清单批量恢复/安装所有包
+├── pacman-native.txt    # 官方仓库显式安装的软件包列表
+├── pacman-aur.txt       # AUR 显式安装的第三方/专有软件包列表
+└── flatpak.txt          # Flatpak 安装的沙盒应用程序列表
+```
+
+### 1. 系统安装了新软件后（更新备份清单）
+当你平时通过 `pacman`、`yay` 或 `flatpak` 安装了新工具后，只需运行：
 ```bash
-git clone <your-repo-url> ~/dotfiles
+./packages/export.sh
+git add packages/
+git commit -m "chore(pkg): update installed package lists"
+git push
+```
+
+### 2. 新机器/系统重装后（批量还原安装所有软件）
+```bash
+./packages/install.sh
+```
+
+---
+
+## 🚀 新机器从零快速还原指南
+
+在新装的 Arch Linux 环境中，只需以下 3 步即可完整复现整套工作环境：
+
+### 第一步：安装 Git 与 GNU Stow
+```bash
+sudo pacman -S --needed git stow
+```
+
+### 第二步：克隆本仓库到 `$HOME`
+```bash
+git clone https://github.com/bokeshiling/dotfiles.git ~/dotfiles
 cd ~/dotfiles
 ```
 
-### 3. 一键部署全部配置
+### 第三步：一键还原软件包并建立配置软链接
 ```bash
-./bootstrap.sh
-```
+# 同时恢复软件包与配置文件链接
+./bootstrap.sh --packages
 
-或者手动按需部署单个模块：
-```bash
-stow nvim
-stow zsh
-stow niri
+# 或者只建立配置文件链接（跳过装包）
+./bootstrap.sh
 ```
 
 ---
 
-## 🔧 日常维护指南
+## 🔐 敏感信息与单机差异化隔离
 
-* **新增/修改配置**：直接在 `~/dotfiles/` 下编辑文件，Git 提交即可。
-* **刷新软链接**：`stow -R <模块名>`
-* **卸载软链接**：`stow -D <模块名>`
-* **私密/单机配置**：放入 `~/.zshrc.local`，已被 `.gitignore` 忽略，不会随仓库上传。
+为了防止个人 Token、公司内部路径、私有邮箱等意外提交到公共 GitHub 仓库，本仓库采用了 `.local` 解耦设计：
+
+1. **Shell 配置 (Zsh/Bash)**：
+   * 在 `~/.zshrc` 底部已预埋自动加载逻辑：`[ -f ~/.zshrc.local ] && source ~/.zshrc.local`
+   * 任何专属单机的 PATH、环境变量、密钥别名直接写入 `~/.zshrc.local`。
+
+2. **Git 个人身份**：
+   * 在 `~/.gitconfig` 中配置了 `[include] path = ~/.gitconfig.local`
+   * 可将个人 email 或 signingkey 写入未被跟踪的 `~/.gitconfig.local`。
+
+> 💡 仓库的 `.gitignore` 已内置对 `*.local`、`*.secret`、`*.bak`、`*.log` 的自动忽略。
+
+---
+
+## 🛠️ Stow 常用维护命令速查
+
+| 操作 | 命令 | 说明 |
+| :--- | :--- | :--- |
+| **更新/刷新模块链接** | `stow -R <模块名>` | 修改或新增了文件后重建链接 |
+| **卸载/取消模块链接** | `stow -D <模块名>` | 安全移除软链接，源文件不受影响 |
+| **部署单个模块** | `stow <模块名>` | 仅链接指定工具的配置 |
+| **模拟测试 (Dry-run)** | `stow -n -v <模块名>` | 打印将被创建的软链接，不实际操作 |
+
+---
+
+## 📜 开源协议
+
+本项目基于 [MIT License](LICENSE) 开源，欢迎自由定制与参考。
