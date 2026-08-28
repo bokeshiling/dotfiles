@@ -1,6 +1,6 @@
 # 🪐 bokeshiling's Dotfiles
 
-> 基于 **Arch Linux + Niri + GNU Stow** 的模块化个人配置与系统软件包管理方案。
+> 基于 **Arch Linux + Niri + GNU Stow** 的扁平化个人配置与系统软件包管理方案（1:1 镜像 `$HOME` 架构）。
 
 ![Arch Linux](https://img.shields.io/badge/Arch_Linux-1793D1?logo=arch-linux&logoColor=white&style=flat-square)
 ![Wayland](https://img.shields.io/badge/Wayland-Niri-blue?style=flat-square)
@@ -29,36 +29,47 @@
 
 ---
 
-## 📁 配置模块与软链接映射
+## 📁 扁平化目录结构（1:1 镜像 `$HOME`）
 
-本项目借助 **GNU Stow** 将每个子目录作为独立模块，原样映射到用户的 `$HOME` 目录下：
+本仓库采用最直观的 **`$HOME` 镜像布局**，配合 `.stow-local-ignore` 过滤非配置管理文件，彻底杜绝了传统 Stow 的套娃多层嵌套：
 
 ```text
 dotfiles/
-├── packages/                # 软件包管理清单与导出/恢复脚本（不参与 stow）
-├── bootstrap.sh             # 一键自动化部署脚本
-├── alacritty/               # ~/.config/alacritty
-├── bash/                    # ~/.bashrc, ~/.bash_profile, ~/.bash_logout
-├── cava/                    # ~/.config/cava
-├── fcitx5/                  # ~/.config/fcitx5
-├── fontconfig/              # ~/.config/fontconfig
-├── git/                     # ~/.gitconfig
-├── gtk/                     # ~/.config/gtk-3.0, gtk-4.0, xsettingsd, ~/.gtkrc-2.0
-├── kitty/                   # ~/.config/kitty
-├── mako/                    # ~/.config/mako
-├── matugen/                 # ~/.config/matugen
-├── mpd/                     # ~/.config/mpd
-├── ncmpcpp/                 # ~/.config/ncmpcpp
-├── niri/                    # ~/.config/niri
-├── nvim/                    # ~/.config/nvim
-├── satty/                   # ~/.config/satty
-├── scripts/                 # ~/.config/scripts (自定义壁纸、模糊、主题切换脚本)
-├── starship/                # ~/.config/starship.toml
-├── swaylock/                # ~/.config/swaylock
-├── vim/                     # ~/.vimrc
-├── waybar/                  # ~/.config/waybar
-├── waypaper/                # ~/.config/waypaper
-└── zsh/                     # ~/.zshrc
+├── .config/                 # 1:1 镜像系统 ~/.config/
+│   ├── alacritty/           # -> ~/.config/alacritty
+│   ├── cava/                # -> ~/.config/cava
+│   ├── fcitx5/              # -> ~/.config/fcitx5
+│   ├── fontconfig/          # -> ~/.config/fontconfig
+│   ├── gtk-3.0/             # -> ~/.config/gtk-3.0
+│   ├── gtk-4.0/             # -> ~/.config/gtk-4.0
+│   ├── kitty/               # -> ~/.config/kitty
+│   ├── mako/                # -> ~/.config/mako
+│   ├── matugen/             # -> ~/.config/matugen
+│   ├── mpd/                 # -> ~/.config/mpd
+│   ├── ncmpcpp/             # -> ~/.config/ncmpcpp
+│   ├── niri/                # -> ~/.config/niri
+│   ├── nvim/                # -> ~/.config/nvim
+│   ├── satty/               # -> ~/.config/satty
+│   ├── scripts/             # -> ~/.config/scripts (壁纸、模糊、主题切换脚本)
+│   ├── starship.toml        # -> ~/.config/starship.toml
+│   ├── swaylock/            # -> ~/.config/swaylock
+│   ├── waybar/              # -> ~/.config/waybar
+│   ├── waypaper/            # -> ~/.config/waypaper
+│   └── xsettingsd/          # -> ~/.config/xsettingsd
+│
+├── .bash_logout             # -> ~/.bash_logout
+├── .bash_profile            # -> ~/.bash_profile
+├── .bashrc                  # -> ~/.bashrc
+├── .gitconfig               # -> ~/.gitconfig
+├── .gtkrc-2.0               # -> ~/.gtkrc-2.0
+├── .vimrc                   # -> ~/.vimrc
+├── .zshrc                   # -> ~/.zshrc
+│
+├── .stow-local-ignore       # 过滤 Git、说明文档与脚本，防止软链接到 $HOME
+├── .gitignore
+├── README.md
+├── bootstrap.sh             # 一键部署与软链接同步脚本
+└── packages/                # 软件包清单与自动化安装脚本
 ```
 
 ---
@@ -71,9 +82,9 @@ dotfiles/
 packages/
 ├── export.sh            # 一键导出系统当前已安装的所有包列表
 ├── install.sh           # 一键从清单批量恢复/安装所有包
-├── pacman-native.txt    # 官方仓库显式安装的软件包列表
-├── pacman-aur.txt       # AUR 显式安装的第三方/专有软件包列表
-└── flatpak.txt          # Flatpak 安装的沙盒应用程序列表
+├── pacman-native.txt    # 官方仓库显式安装的软件包列表 (141个)
+├── pacman-aur.txt       # AUR 显式安装的第三方/专有软件包列表 (23个)
+└── flatpak.txt          # Flatpak 安装的沙盒应用程序列表 (3个)
 ```
 
 ### 1. 系统安装了新软件后（更新备份清单）
@@ -134,14 +145,15 @@ cd ~/dotfiles
 
 ---
 
-## 🛠️ Stow 常用维护命令速查
+## 🛠️ Stow 维护命令速查
+
+在新的扁平化架构下，所有操作只需一条指令：
 
 | 操作 | 命令 | 说明 |
 | :--- | :--- | :--- |
-| **更新/刷新模块链接** | `stow -R <模块名>` | 修改或新增了文件后重建链接 |
-| **卸载/取消模块链接** | `stow -D <模块名>` | 安全移除软链接，源文件不受影响 |
-| **部署单个模块** | `stow <模块名>` | 仅链接指定工具的配置 |
-| **模拟测试 (Dry-run)** | `stow -n -v <模块名>` | 打印将被创建的软链接，不实际操作 |
+| **一键刷新全部软链接** | `stow -R -t ~ .` | 新增/修改文件后，一键重连所有配置 |
+| **一键取消全部软链接** | `stow -D -t ~ .` | 安全移除所有软链接，仓库文件保持完好 |
+| **模拟测试 (Dry-run)** | `stow -n -v -t ~ .` | 预演链接变动，不实际写入文件 |
 
 ---
 

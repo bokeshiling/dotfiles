@@ -3,6 +3,7 @@ set -e
 
 # =============================================================================
 # Dotfiles Bootstrap Script (Git + GNU Stow)
+# Layout: Direct $HOME mirror with .stow-local-ignore
 # =============================================================================
 
 DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -20,7 +21,7 @@ for arg in "$@"; do
             echo "用法: ./bootstrap.sh [选项]"
             echo ""
             echo "选项:"
-            echo "  -p, --packages    在链接配置文件前，先通过 pacman/yay/flatpak 恢复系统软件包"
+            echo "  -p, --packages    在建立软链接前，先通过 pacman/yay/flatpak 恢复系统软件包"
             echo "  -h, --help        显示帮助信息"
             exit 0
             ;;
@@ -45,33 +46,10 @@ if ! command -v stow >/dev/null 2>&1; then
     exit 1
 fi
 
-echo "🚀 开始部署 Dotfiles 软链接..."
+echo "🚀 开始部署 Dotfiles 软链接到 $HOME..."
 
-# 要排除的非配置包目录
-EXCLUDE_DIRS=("packages" ".git")
-
-# 获取所有顶层配置包目录
-PACKAGES=()
-for dir in */; do
-    dir="${dir%/}"
-    # 忽略隐藏目录
-    [[ "$dir" =~ ^\. ]] && continue
-    # 忽略非 stow 模块
-    skip=false
-    for ex in "${EXCLUDE_DIRS[@]}"; do
-        if [ "$dir" == "$ex" ]; then
-            skip=true
-            break
-        fi
-    done
-    [ "$skip" = false ] && PACKAGES+=("$dir")
-done
-
-# 遍历每个包并执行 stow
-for pkg in "${PACKAGES[@]}"; do
-    echo "  -> 正在链接模块: $pkg"
-    stow -R --target="$HOME" "$pkg"
-done
+# 使用 GNU stow 将当前仓库 1:1 软链接到 $HOME (受 .stow-local-ignore 保护)
+stow -R -v -t "$HOME" .
 
 echo ""
 echo "✨ 所有配置文件已成功链接到 $HOME !"
