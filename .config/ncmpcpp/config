@@ -3,29 +3,40 @@ mpd_host = "127.0.0.1"
 mpd_port = "6600"
 mpd_music_dir = "~/Music"
 
-# --- 2. 界面与外观 ---
+# --- 2. 界面与交互 ---
 user_interface = "alternative"
-song_status_format = "$7%t$9 $1by$9 $2%a$9"
-progressbar_look = "─⊙─"
+autocenter_mode = "yes"
+mouse_support = "yes"
+message_delay_time = "1"
+
+# 窗口与状态栏可见性
 header_visibility = "yes"
 statusbar_visibility = "yes"
 titles_visibility = "yes"
 enable_window_title = "yes"
 
-# --- 3. 歌词引擎配置 (核心) ---
-# 歌词缓存存放路径
+# 列表与显示格式（支持标签缺失降级）
+song_status_format = "$7%t$9 $1by$9 $2%a$9"
+song_list_format = "{{%a - %t}|{%f}}{$R%l}"
+
+# 选定项与播放中样式
+current_item_prefix = "$b$7"
+now_playing_prefix = "$b$3"
+now_playing_suffix = "$b$9"
+progressbar_look = "─⊙─"
+
+# 桌面切歌通知 (依赖 mpc 和 libnotify)
+execute_on_song_change = notify-send "♫ Now Playing" "$(mpc current)"
+
+# --- 3. 歌词引擎配置 ---
 lyrics_directory = "~/.local/share/ncmpcpp/lyrics"
-# 内置抓取源优先级（国外曲目为主）
 lyrics_fetchers = "tags, genius, internet"
-# 随歌曲切换自动追踪显示歌词
 follow_now_playing_lyrics = "yes"
-# 在后台为当前播放的歌曲自动检索歌词
 fetch_lyrics_for_current_song_in_background = "yes"
-# 是否把下载的歌词保存到歌曲所在目录（设为 no 统一放在 ~/.local/share/ncmpcpp/lyrics）
 store_lyrics_in_song_dir = "no"
 
-# --- 4. 频谱可视化配置 (Visualizer) ---
-visualizer_data_source = "/tmp/mpd.fifo"
+# --- 4. 频谱可视化配置 ---
+visualizer_data_source = "/run/user/1000/mpd.fifo"  # 若使用 /tmp 则保持 /tmp/mpd.fifo
 visualizer_output_name = "Visualizer feed"
 visualizer_in_stereo = "yes"
 visualizer_type = "wave"

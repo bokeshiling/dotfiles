@@ -18,6 +18,6 @@ local.lua
 # Neovim 相关忽略
 .config/nvim/doc/
 .config/nvim/README*.md
+.config/nvim/cache/
 .netrwhist
 plugin/packer_compiled.lua
-
