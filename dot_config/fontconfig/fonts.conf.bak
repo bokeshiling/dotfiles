@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<!DOCTYPE fontconfig SYSTEM "urn:fontconfig:fonts.dtd">
+<fontconfig>
+    <match target="pattern">
+        <test name="lang" compare="contains">
+            <string>zh</string>
+        </test>
+        <edit name="family" mode="prepend" binding="strong">
+            <string>LXGW WenKai GB Screen</string>
+        </edit>
+    </match>
+
+    <match target="pattern">
+        <test name="family">
+            <string>sans-serif</string>
+        </test>
+        <edit name="family" mode="append" binding="weak">
+            <string>LXGW WenKai GB Screen</string>
+        </edit>
+    </match>
+
+    <match target="pattern">
+        <test name="family">
+            <string>serif</string>
+        </test>
+        <edit name="family" mode="append" binding="weak">
+            <string>LXGW WenKai GB Screen</string>
+        </edit>
+    </match>
+
+    <match target="pattern">
+        <test name="family">
+            <string>monospace</string>
+        </test>
+        <edit name="family" mode="append" binding="weak">
+            <string>LXGW WenKai Mono GB Screen</string>
+        </edit>
+    </match>
+
+    <!-- 针对 QQ 可能使用的字体，指定 zh-CN 优先 -->
+    <alias>
+        <family>Noto Sans CJK JP</family>
+        <prefer>
+            <family>Noto Sans CJK SC</family>
+        </prefer>
+    </alias>
+    <alias>
+        <family>Noto Sans CJK KR</family>
+        <prefer>
+            <family>Noto Sans CJK SC</family>
+        </prefer>
+    </alias>
+    <!-- 如果 QQ 使用文泉驿微米黑 -->
+    <alias>
+        <family>WenQuanYi Micro Hei</family>
+        <prefer>
+            <family>LXGW WenKai GB Screen</family>
+        </prefer>
+    </alias>
+    <!-- 如果 QQ 使用宋体 -->
+    <alias>
+        <family>SimSun</family>
+        <prefer>
+            <family>Noto Sans CJK SC</family>
+        </prefer>
+    </alias>
+</fontconfig>

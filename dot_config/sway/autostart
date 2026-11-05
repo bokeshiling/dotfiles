@@ -1,0 +1,31 @@
+# vim:ft=swayconfig
+# @author nate zhou
+# @since 2023,2024,2025,2026
+# .config/sway/autostart
+
+exec_always "killall -q mpc; ${HOME}/.local/bin/damblocks-mpdd"
+
+# exec_always "swaybg -i ${HOME}/.local/share/wallpaper -m fill"
+#exec_always "swaybg -c 000000"
+
+# restart decided by scripts
+# exec_always "${HOME}/.local/bin/foots"
+
+exec_always "${HOME}/.local/bin/lucia -d"
+
+exec_always "${HOME}/.local/bin/mbs-cron"
+
+# start if not running
+exec_always "pgrep 'swayidle' || swayidle"
+
+exec_always "pgrep 'kanshi' || kanshi"
+
+exec_always "killall -q gammastep; gammastep -O 5000"
+
+exec_always "wl-paste --watch cliphist store"
+
+exec_always "pgrep 'dunst' || dunst"
+
+exec_always "pgrep 'wob' || ${HOME}/.local/bin/wobd"
+
+exec_always "fcitx5 -d --verbose '*=0'"

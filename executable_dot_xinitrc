@@ -1,0 +1,50 @@
+#!/usr/bin/sh
+
+wm=${1:-dwm}
+
+autostart() {
+    xrandr -s 1366x768
+    xwallpaper --zoom ${HOME}/.local/share/wallpaper.png &
+    picom &
+    ${HOME}/.local/bin/lucia -d &
+    ${HOME}/.local/bin/mbs-cron &
+    xss-lock -- slock &
+    redshift -P 0 5000 &
+    clipmenud &
+    pgrep 'dunst' || dunst -conf ${HOME}/.config/dunst/dunstrc-offset &
+    pgrep 'xob' || ${HOME}/.local/bin/xobd &
+    fcitx5 -d --verbose '*=0' &
+}
+
+config_x() {
+    echo "Xft.dpi: 96" | xrdb -m
+    xset r rate 200 30 &
+    setxkbmap -option caps:swapescape &
+    unclutter --timeout 3 &
+    xbanish &
+
+    touchpads=$(xinput list | grep -i "touchpad" | grep -oP 'id=\K[0-9]+')
+    for touchpad in $touchpads ; do
+        xinput set-prop "$touchpad" "libinput Tapping Enabled" 1
+        xinput set-prop "$touchpad" "libinput Natural Scrolling Enabled" 1
+    done
+
+    xset s on
+    xset s 960
+
+    export GTK_IM_MODULE=fcitx
+    export XMODIFIERS=@im=fcitx
+    export QT_IM_MODULE=fcitx
+    export XDG_SESSION_TYPE=xorg
+}
+
+config_x;
+autostart;
+
+case "$wm" in
+    dwm)
+        damblocks-mpdd &
+        damblocks --xsetroot &
+        exec ssh-agent dwm
+        ;;
+esac

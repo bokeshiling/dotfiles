@@ -1,0 +1,280 @@
+# vim:ft=dircolors
+# @author nate zhou
+# @since 2025
+
+COLORTERM ?*
+TERM Eterm
+TERM ansi
+TERM *color*
+TERM con[0-9]*x[0-9]*
+TERM cons25
+TERM console
+TERM cygwin
+TERM *direct*
+TERM dtterm
+TERM gnome
+TERM hurd
+TERM jfbterm
+TERM konsole
+TERM kterm
+TERM linux
+TERM linux-c
+TERM mlterm
+TERM putty
+TERM rxvt*
+TERM screen*
+TERM st
+TERM terminator
+TERM tmux*
+TERM vt100
+TERM xterm*
+
+RESET 0 # reset to "normal" color
+DIR 01;34 # directory
+LINK 01;36 # symbolic link. (If you set this to 'target' instead of a
+ # numerical value, the color is as for the file pointed to.)
+MULTIHARDLINK 00 # regular file with more than one link
+FIFO 40;33 # pipe
+SOCK 01;35 # socket
+DOOR 01;35 # door
+BLK 40;33;01 # block device driver
+CHR 40;33;01 # character device driver
+ORPHAN 40;31;01 # symlink to nonexistent file, or non-stat'able file ...
+MISSING 00 # ... and the files they point to
+SETUID 37;41 # file that is setuid (u+s)
+SETGID 30;43 # file that is setgid (g+s)
+CAPABILITY 00 # file with capability (very expensive to lookup)
+STICKY_OTHER_WRITABLE 30;42 # dir that is sticky and other-writable (+t,o+w)
+OTHER_WRITABLE 35;42 # dir that is other-writable (o+w) and not sticky
+STICKY 37;44 # dir with the sticky bit set (+t) and not other-writable
+# This is for files with execute permission:
+EXEC 01;32
+*GNUmakefile 01;32
+*makefile 01;32
+*Makefile 01;32
+*PKGBUILD 01;32
+# If you use DOS-style suffixes, you may want to uncomment the following:
+#.cmd 01;32 # executables (bright green)
+#.exe 01;32
+#.com 01;32
+#.btm 01;32
+#.bat 01;32
+# Or if you want to color scripts even if they do not have the
+# executable bit actually set.
+#.sh 01;32
+#.csh 01;32
+# archives or compressed (bright red)
+.7z 01;31
+.ace 01;31
+.alz 01;31
+.apk 01;31
+.arc 01;31
+.arj 01;31
+.bz 01;31
+.bz2 01;31
+.cab 01;31
+.cpio 01;31
+.crate 01;31
+.deb 01;31
+.drpm 01;31
+.dwm 01;31
+.dz 01;31
+.ear 01;31
+.egg 01;31
+.esd 01;31
+.gz 01;31
+.jar 01;31
+.lha 01;31
+.lrz 01;31
+.lz 01;31
+.lz4 01;31
+.lzh 01;31
+.lzma 01;31
+.lzo 01;31
+.pyz 01;31
+.rar 01;31
+.rpm 01;31
+.rz 01;31
+.sar 01;31
+.swm 01;31
+.t7z 01;31
+.tar 01;31
+.taz 01;31
+.tbz 01;31
+.tbz2 01;31
+.tgz 01;31
+.tlz 01;31
+.txz 01;31
+.tz 01;31
+.tzo 01;31
+.tzst 01;31
+.udeb 01;31
+.war 01;31
+.whl 01;31
+.wim 01;31
+.xz 01;31
+.z 01;31
+.zip 01;31
+.zoo 01;31
+.zst 01;31
+
+# image formats
+.avif 00;33
+.jpg 00;33
+.jpeg 00;33
+.mjpg 00;33
+.mjpeg 00;33
+.gif 00;95
+.bmp 00;33
+.pbm 00;33
+.pgm 00;33
+.ppm 00;33
+.tga 00;33
+.xbm 00;33
+.xpm 00;33
+.tif 00;33
+.tiff 00;33
+.png 00;33
+.svg 00;33
+.svgz 00;33
+.heic 00;33
+.mng 00;33
+.pcx 00;33
+.mov 00;33
+.mpg 00;33
+.mpeg 00;33
+.m2v 00;33
+.mkv 00;95
+.webm 00;95
+.webp 00;95
+.ogm 00;33
+.mp4 00;95
+.m4v 00;95
+.mp4v 00;95
+.vob 00;33
+.qt 00;33
+.nuv 00;33
+.wmv 00;33
+.asf 00;33
+.rm 00;33
+.rmvb 00;33
+.flc 00;33
+.avi 00;95
+.AVI 00;95
+.fli 00;95
+.flv 00;95
+.gl 00;33
+.dl 00;33
+.xcf 00;96
+.xwd 00;33
+.yuv 00;33
+.cgm 00;33
+.emf 00;33
+.ogv 00;35
+.ogx 00;35
+
+# audio formats
+.aac 00;36
+.au 00;36
+.flac 00;36
+.m4a 00;36
+.mid 00;36
+.midi 00;36
+.mka 00;36
+.mp3 00;36
+.mpc 00;36
+.ogg 00;36
+.ra 00;36
+.wav 00;36
+.oga 00;36
+.opus 00;36
+.spx 00;36
+.xspf 00;36
+
+# backup files
+*~ 00;90
+*# 00;90
+.bak 00;90
+*.backup 00;90
+.crdownload 00;90
+.dpkg-dist 00;90
+.dpkg-new 00;90
+.dpkg-old 00;90
+.dpkg-tmp 00;90
+.old 00;90
+.orig 00;90
+.part 00;90
+.rej 00;90
+.rpmnew 00;90
+.rpmorig 00;90
+.rpmsave 00;90
+.swp 00;90
+.tmp 00;90
+.ucf-dist 00;90
+.ucf-new 00;90
+.ucf-old 00;90
+
+*.gitignore 00;93
+*.stow-local-ignore 00;93
+*.mpdignore 00;93
+
+*.example   00;96
+
+*.hook      00;93
+*config     00;93
+*.config    00;93
+*.local     00;93
+*.rules     00;93
+*.conf      00;93
+*.ini       00;93
+*.inc       00;93
+*.conf      00;93
+*dunstrc    00;93
+*muttrc     00;93
+*.muttrc    00;93
+*.neomuttrc 00;93
+*fzfrc      00;93
+*gtkrc      00;93
+*.inputrc   00;93
+*inputrc    00;93
+*lfrc       00;93
+*taskrc     00;93
+*wgetrc     00;93
+*.zathurarc 00;93
+*zathurarc  00;93
+*isyncrc    00;93
+*dircolors  00;93
+*.xkb       00;93
+*vimrc      00;93
+*.vim       00;93
+*.lua       00;93
+*.yaml      00;93
+*.yml       00;93
+*.toml      00;93
+*.css       00;93
+*.html      00;96
+
+# gpg
+*.gpg       00;91
+*.key       00;93
+*.sig       00;93
+*.asc       00;93
+*.rev       00;93
+*.pub       00;93
+*.sec       00;93
+
+*.kdenlive  00;96
+*.pdf       00;95
+*.epub      00;95
+*.doc       00;94
+*.docx      00;94
+*.odt       00;94
+*.xls       00;92
+*.xlsx      00;92
+*.ods       00;92
+*.ppt       00;95
+*.pptx      00;95
+*.odp       00;95
+*.qcow2     00;91
+*.torrent   00;92
+*.iso       00;95

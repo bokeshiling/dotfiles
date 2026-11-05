@@ -1,0 +1,48 @@
+include "binds.kdl"
+include "autostart.kdl"
+//include optional=true "rule.kdl"
+include optional=true "output.kdl"
+include optional=true "input.kdl"
+include optional=true "animations.kdl"
+//include optional=true "layout.kdl"
+include "colors.kdl"
+
+screenshot-path "~/tmp/screenshots/Niri-screenshots/%Y-%m-%d %H-%M-%S.png"
+
+//environment {}
+
+//cursor {}
+
+//overviem {}
+
+prefer-no-csd
+
+//-grid-overview {
+    // column 和 column 的间距
+//    gap 20 
+    // gird 区域里边框的外边距
+//    padding 100
+    // grid 中聚焦column的缩放
+    //focused-column-scale 1.0
+    // 鼠标移动时，焦点跟随到鼠标底下的格子（移动超过 8px 才接管，键盘导航优先）
+//    focus-follows-mouse
+//    focus-ring-width 8
+//    grid-all-monitors true
+//    minimized-highlight {
+        // off
+//       color "#999999"        
+//        urgent-color "#ff9999"
+//        padding 10
+        // 不写 corner-radius 时，底框圆角自动和窗口圆角同心，跟聚焦环对齐
+        // corner-radius 8
+//    }
+//   focus-ring-transition "grow"
+//}
+
+//spawn-at-startup "damblocks" "--fifo"
+//spawn-at-startup "sh" "-c" "while true; do cat < \"$XDG_RUNTIME_DIR/damblocks.fifo\" 2>/dev/null; echo; done | pipebar"
+
+window-rule {
+    geometry-corner-radius 12
+    clip-to-geometry true
+}

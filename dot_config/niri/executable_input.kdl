@@ -1,0 +1,26 @@
+input {
+    keyboard {
+        xkb {
+            options "caps:swapescape"
+        }
+        repeat-delay 250
+        repeat-rate 35
+    }
+    touchpad {
+        tap
+        dwt
+        dwtp
+    }
+    mouse {}
+    trackpoint {
+        natural-scroll
+        accel-speed 0.2
+        accel-profile "flat"
+        scroll-method "on-button-down"
+        scroll-button 273
+        scroll-button-lock
+        middle-emulation
+    }
+    warp-mouse-to-focus
+    focus-follows-mouse max-scroll-amount="0%"
+}

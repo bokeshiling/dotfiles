@@ -1,0 +1,15 @@
+# vim:ft=toml
+
+[mgr]
+# 布局比例: [父目录, 当前目录, 预览]
+ratio = [1, 4, 3]
+
+[opener]
+swayimg = [
+    { run = 'swayimg "$@"', desc = "swayimg", block = true, for = "unix" },
+]
+
+[open]
+prepend_rules = [
+    { mime = "image/*", use = "swayimg" },
+]

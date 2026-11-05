@@ -1,0 +1,22 @@
+# vim:ft=swayconfig
+# .config/sway/bar
+bar {
+    status_command damblocks
+    position top
+    height 24
+    font Source Code Pro medium 16
+    tray_output none
+    tray_padding 4
+    status_edge_padding 4
+    strip_workspace_numbers yes
+    colors {
+    background #323232
+	statusline #bbbbbb
+	# workspace         border  backgr   text
+	focused_workspace  $color14 $color14 #eeeeee
+	active_workspace   $colorbg $colorbg #bbbbbb
+	inactive_workspace $colorbg $colorbg #bbbbbb
+	urgent_workspace   #bbbbbb  #bbbbbb  $colorbg
+	binding_mode       $color14 $color14 #eeeeee
+    }
+}

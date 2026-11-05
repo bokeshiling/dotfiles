@@ -1,0 +1,56 @@
+# vim:ft=swayconfig
+# @author nate zhou
+# @since 2023,2024,2025,2026
+# .config/sway/modes
+
+set $wmenu "[w]iki [h]eart [b]ooks bl[u]e [s]peaker [e]moji [j]doc"
+set $wlrctl "[hjkl]cursors [,]left [.]right [m]iddle ^[hjkl]arrows"
+
+# wmenu ########################################################################
+bindsym $mod+w mode $wmenu
+mode $wmenu {
+    bindsym $mod+w mode "default"
+    bindsym Escape mode "default"
+    bindsym Space  mode "default"
+
+    bindsym w mode "default"; exec "${HOME}/.local/bin/wiki"
+    bindsym h mode "default"; exec "${HOME}/.local/bin/heart"
+    bindsym b mode "default"; exec "${HOME}/.local/bin/books"
+    bindsym u mode "default"; exec "${HOME}/.local/bin/blue"
+    bindsym s mode "default"; exec "${HOME}/.local/bin/speaker"
+    bindsym e mode "default"; exec "${HOME}/.local/bin/emoji"
+    bindsym j mode "default"; exec "${HOME}/.local/bin/jdoc"
+}
+
+bindsym $mod+slash mode $wlrctl; seat seat0 hide_cursor when-typing disable
+mode $wlrctl {
+    bindsym $mod+slash mode "default"; seat seat0 hide_cursor when-typing enable
+    bindsym Escape     mode "default"; seat seat0 hide_cursor when-typing enable
+    bindsym Space      mode "default"; seat seat0 hide_cursor when-typing enable
+
+    bindsym h seat - cursor move -90 0
+    bindsym j seat - cursor move 0 +90
+    bindsym k seat - cursor move 0 -90
+    bindsym l seat - cursor move +90 0
+    bindsym Shift+h seat - cursor move -15 0
+    bindsym Shift+j seat - cursor move 0 +15
+    bindsym Shift+k seat - cursor move 0 -15
+    bindsym Shift+l seat - cursor move +15 0
+
+    bindsym slash seat - cursor set 9999 9999
+
+    bindsym Control+h exec "wtype -k Left"
+    bindsym Control+j exec "wtype -k Down"
+    bindsym Control+k exec "wtype -k Up"
+    bindsym Control+l exec "wtype -k Right"
+
+    bindsym comma        seat - cursor press button1, seat - cursor release button1
+    bindsym period       seat - cursor press button3, seat - cursor release button3
+    bindsym Shift+comma  seat - cursor press button1, seat - cursor release button1
+    bindsym Shift+period seat - cursor press button3, seat - cursor release button3
+
+    bindsym n exec "wlrctl pointer scroll 30"
+    bindsym p exec "wlrctl pointer scroll -30"
+    }
+
+

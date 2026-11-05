@@ -1,0 +1,22 @@
+spawn-sh-at-startup "killall -q mpc; ${HOME}/.local/bin/damblocks-mpdd"
+
+spawn-sh-at-startup "${HOME}/.local/bin/lucia -d"
+
+spawn-sh-at-startup "pgrep 'swayidle' || swayidle"
+
+spawn-sh-at-startup "pgrep 'kanshi' || kanshi"
+
+spawn-sh-at-startup "killall -q gammastep; gammastep -O 5000"
+
+spawn-sh-at-startup "wl-paste --watch cliphist store"
+
+spawn-sh-at-startup "pgrep 'dunst' || dunst"
+
+spawn-sh-at-startup "pgrep 'wob' || ${HOME}/.local/bin/wobd"
+
+spawn-sh-at-startup "fcitx5 -d --verbose '*=0'"
+
+//spawn-at-startup "damblocks" "--fifo"
+//spawn-at-startup "sh" "-c" "while true; do cat < \"$XDG_RUNTIME_DIR/damblocks.fifo\" 2>/dev/null; echo; done | pipebar"
+
+spawn-at-startup "waybar"

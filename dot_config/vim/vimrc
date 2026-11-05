@@ -1,0 +1,43 @@
+set clipboard=unnamedplus
+
+set nocompatible
+
+syntax on
+
+set number
+set relativenumber
+
+set tabstop=4
+set shiftwidth=4
+set expandtab
+set autoindent
+set smartindent
+
+set hlsearch
+set incsearch
+set ignorecase
+set smartcase
+
+let mapleader = " "
+
+noremap <leader><CR> :nohlsearch<CR>
+
+set undofile
+set undodir=~/.local/state/vim/undo//
+
+set scrolloff=5
+set sidescrolloff=8
+set showmatch
+set cursorline
+set termguicolors
+" highlight Cursorline cterm=NONE gui=NONE ctermbg=236 guibg=#3e484f
+" highlight CursorlineNr cterm=NONE gui=NONE ctermbg=236 guibg=#3e484f guifg=#fabd2f ctermfg=214
+
+call plug#begin(expand('$XDG_DATA_HOME/vim/plugged'))
+Plug 'tpope/vim-surround'
+Plug 'jiangmiao/auto-pairs'
+Plug 'joshdick/onedark.vim'
+call plug#end()
+
+colorscheme onedark
+set background=dark
