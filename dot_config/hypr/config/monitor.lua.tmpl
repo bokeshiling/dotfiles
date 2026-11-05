@@ -1,0 +1,13 @@
+{{- $host := index .hosts .chezmoi.hostname }}
+{{- $monitor := $host.monitor -}}
+
+hl.config({
+    monitor = {
+        {
+            name = "{{ $monitor.name }}",
+            mode = "{{ $monitor.mode }}",
+            position = "0x0",
+            scale = 1,
+        },
+    }
+})

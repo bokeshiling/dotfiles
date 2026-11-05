@@ -354,14 +354,15 @@ update_wttr() {
 }
 
 # modules that don't update on their own need to be run at the start for getting their initial value
-update_volume; update_microphone; update_brightness; update_pacman; update_mpd; 
+update_volume; update_microphone; update_brightness;
+# update_pacman; update_mpd; 
 
 display () {
     local space=" "
     local delimiter_home="["
     local delimiter_end="]"
     local separator="]["
-    local line="${delimiter_home}${mpd}${separator}${pacman}${space}${ttylogin}${space}${uptime}${separator}${root}${separator}${memory}${space}${cpu}${space}${temperature}${space}${fanmode}${separator}${wifi}${space}${bluetooth}${separator}${brightness}${space}${microphone}${space}${volume}${separator}${battery}${separator}${time}${delimiter_end}"
+    local line="${delimiter_home}${ttylogin}${space}${uptime}${separator}${root}${separator}${memory}${space}${cpu}${space}${temperature}${space}${fanmode}${separator}${wifi}${space}${bluetooth}${separator}${brightness}${space}${microphone}${space}${volume}${separator}${battery}${separator}${time}${delimiter_end}"
 
 case "$mode" in
     fifo)
@@ -389,12 +390,12 @@ trap	"update_volume;display"	  	"RTMIN+2"   # -36 .local/bin/audio
 trap	"update_microphone;display"	"RTMIN+3"   # -37 .local/bin/audio
 trap	"update_brightness;display"	"RTMIN+4"   # -38 .local/bin/bright
 #trap	"update_usb;display"	    "RTMIN+5"   # -39 udev.rules
-trap	"update_pacman;display"	    "RTMIN+6"   # -40 .local/bin/checkupdates-cron
+#trap	"update_pacman;display"	    "RTMIN+6"   # -40 .local/bin/checkupdates-cron
 #trap	"update_mutt;display"	    "RTMIN+7"   # -41 .local/bin/mbs{,-cron}
 #trap	"update_newsboat;display"   "RTMIN+8"   # -42 .local/bin/news*
 #trap	"update_calcurse;display"   "RTMIN+9"   # -43 .local/bin/calcurse*
 #trap	"update_wttr;display"       "RTMIN+10"  # -44 .local/bin/wttr --cron
-trap    "update_mpd;display"        "RTMIN+11"  # -45 .local/bin/damblocks-mpdd
+#trap    "update_mpd;display"        "RTMIN+11"  # -45 .local/bin/damblocks-mpdd
 trap    "update_battery;display"    "RTMIN+12"  # -46 99-damblocks-battery.rules
 
 while true

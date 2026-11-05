@@ -1,0 +1,24 @@
+[hosts.binary-desktop.monitor]
+name = "HDMI-A-2"
+resolution = "2560x1440"
+mode = "2560x1440@144"
+
+[hosts.binary-t14gen2.monitor]
+name = "eDP-1"
+resolution = "1920x1080"
+mode = "1920x1080@60.001"
+
+[hosts.binary-t480.monitor]
+name = "eDP-1"
+resolution = "1920x1080"
+mode = "1920x1080@60"
+
+[hosts.binary-x230.monitor]
+name = "LVDS-1"
+resolution = "1366x768"
+mode = "1366x768@60"
+
+[hosts.binary-x220.monitor]
+name = "LVDS-1"
+resolution = "1366x768"
+mode = "1366x768@60"

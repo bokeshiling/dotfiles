@@ -1,0 +1,7 @@
+{{- $host := index .hosts .chezmoi.hostname }}
+{{- $monitor := $host.monitor -}}
+
+output "{{ $monitor.name }}" {
+    mode "{{ $monitor.mode }}"
+    position x=0 y=0
+}
