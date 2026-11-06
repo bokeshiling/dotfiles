@@ -5,7 +5,6 @@
 {{- $monitor := $host.monitor }}
 
 output "{{ $monitor.name }}" {
-	bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_"{{ $monitor.resolution }}".png fill
 	mode {{ $monitor.mode }}Hz
     pos 0 0
 }
