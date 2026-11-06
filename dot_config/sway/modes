@@ -52,5 +52,3 @@ mode $wlrctl {
     bindsym n exec "wlrctl pointer scroll 30"
     bindsym p exec "wlrctl pointer scroll -30"
     }
-
-

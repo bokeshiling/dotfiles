@@ -1,7 +1,3 @@
--- This is an example Hyprland Lua config file.
--- Refer to the wiki for more information.
--- https://wiki.hypr.land/Configuring/Start/
-
 -------------------------------
 ---- ENVIRONMENT VARIABLES ----
 -------------------------------

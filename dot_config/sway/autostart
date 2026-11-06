@@ -9,7 +9,7 @@ exec_always "killall -q mpc; ${HOME}/.local/bin/damblocks-mpdd"
 #exec_always "swaybg -c 000000"
 
 # restart decided by scripts
-# exec_always "${HOME}/.local/bin/foots"
+exec_always "${HOME}/.local/bin/foots"
 
 exec_always "${HOME}/.local/bin/lucia -d"
 

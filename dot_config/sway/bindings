@@ -2,25 +2,34 @@
 # .config/sway/bindings
 
 # Logo key. Use Mod1 for Alt.
+set $mod Mod4
+set $term "footclient"
+set $menu "${HOME}/.local/bin/wmenu-run-color"
+set $wmenu "${HOME}/.local/bin/wmenu-color"
+
 set $left h
 set $down j
 set $up k
 set $right l
 
-set $mod Mod4
-set $term foot
-set $menu "${HOME}/.local/bin/wmenu-run-color"
-set $wmenu "${HOME}/.local/bin/wmenu-color"
-
 bindsym $mod+Return exec $term
-bindsym $mod+q kill
-bindsym $mod+p exec $menu
+bindsym $mod+v      exec "$term -T \"Floating_Term\" -o colors.alpha=0.9 abduco -A dvtm dvtm-status"
+bindsym $mod+q      kill
+bindsym $mod+p      exec $menu
+bindsym $mod+b      exec "swaymsg bar mode toggle"
+
 bindsym $mod+Shift+r reload
-bindsym $mod+Shift+q exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
+# bindsym $mod+Shift+q exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
+bindsym $mod+Shift+q exec "${HOME}/.local/bin/exiland -sway"
 bindsym $mod+Shift+w exec "waylock -init-color 0x000000 -input-color 0x005577 -fail-color 0xcc3333"
-bindsym $mod+b exec "swaymsg bar mode toggle"
+# 暂时未知
+bindsym $mod+Shift+e exec "${HOME}/.local/bin/hibe"
+bindsym $mod+Shift+i exec "${HOME}/.local/bin/mag"
 
 bindsym --release Caps_Lock exec "if [ $(cat /sys/class/leds/input*::capslock/brightness | head -1) = 0 ]; then notify-send -r 195 -t 1100 'Not Capslock'; else notify-send -r 195 -t 1100 'Capslock'; fi"
+
+# 输入法
+bindsym Control+space  exec "fcitx5-remote -t"
 
 # Drag floating windows by holding down $mod and left mouse button.
 # Resize them with right mouse button + $mod.
@@ -40,7 +49,6 @@ bindsym $mod+u layout toggle split
 bindsym $mod+space floating toggle
 # Swap focus between the tiling area and the floating area
 bindsym $mod+f focus mode_toggle
-
 bindsym $mod+e fullscreen
 
 bindsym $mod+Shift+s sticky toggle
@@ -80,28 +88,34 @@ bindsym $mod+Shift+semicolon move container+workspace prev_on_output
     # If there are multiple scratchpad windows, this command cycles through them.
 #    bindsym $mod+minus scratchpad show
 
+# 屏幕截图
 bindsym $mod+y         exec "${HOME}/.local/bin/shoot"
 bindsym $mod+Shift+y   exec "${HOME}/.local/bin/shoot --geo"
 bindsym $mod+Control+y exec "${HOME}/.local/bin/shoot --all"
-# Special key to take a screenshot with grim
 bindsym Print exec grim
 
-bindsym Control+space  exec "fcitx5-remote -t"
-
+# 剪贴板
 bindsym $mod+c                  exec "${HOME}/.local/bin/clip"
 bindsym $mod+Control+c          exec "${HOME}/.local/bin/clip --wipe"
+
+# address
 bindsym $mod+a                  exec "${HOME}/.local/bin/address"
 bindsym $mod+Shift+a            exec "${HOME}/.local/bin/address --record"
 bindsym $mod+Control+a          exec "${HOME}/.local/bin/address --multi"
 
+# 音乐
 bindsym $mod+Control+space      exec "mpc toggle && ${HOME}/.local/bin/lsmus"
 bindsym $mod+Control+p          exec "mpc prev"
 bindsym $mod+Control+n          exec "mpc next"
 
+# 通知事件查看
 bindsym $mod+n                  exec "dunstctl history-pop"
 bindsym $mod+Shift+n            exec "dunstctl close"
 bindsym $mod+Control+Shift+n    exec "dunstctl close-all"
 
+# 暂时未知
+bindsym $mod+Control+s          exec "${HOME}/.local/bin/wsk"
+bindsym $mod+Shift+b            exec "pgrep gammastep && killall gammastep || gammastep -O 5000"
 
 # Moving around:
 # Move your focus around

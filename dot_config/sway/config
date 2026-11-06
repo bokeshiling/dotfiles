@@ -1,12 +1,17 @@
 # vim:ft=swayconfig
 # Read `man 5 sway` for a complete reference.
+
 include ${HOME}/.config/sway/output
 include ${HOME}/.config/sway/input
 include ${HOME}/.config/sway/colors
 include ${HOME}/.config/sway/bar
 include ${HOME}/.config/sway/autostart
 include ${HOME}/.config/sway/bindings
+include ${HOME}/.config/sway/modes
+include ${HOME}/.config/sway/rules
 include /etc/sway/config.d/*
+
+xwayland disabled
 
 seat seat0 {
     hide_cursor 3000
@@ -27,20 +32,6 @@ seat seat0 {
 # resumed. It will also lock your screen before your computer goes to sleep.
 
 ### Input configuration
-#
-# Example configuration:
-#
-#   input type:touchpad {
-#       dwt enabled
-#       tap enabled
-#       natural_scroll enabled
-#       middle_emulation enabled
-#   }
-#
-#   input type:keyboard {
-#       xkb_layout "eu"
-#   }
-#
 # You can also configure each device individually.
 # Read `man 5 sway-input` for more information about this section.
 
